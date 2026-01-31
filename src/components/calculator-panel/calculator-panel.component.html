@@ -1,0 +1,92 @@
+<div 
+  class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border-2 transition-all duration-300"
+  [class]="{
+    'border-green-400 ring-2 ring-green-400/20': isBest(),
+    'border-red-400 ring-2 ring-red-400/20': isWorst(),
+    'border-transparent': !isBest() && !isWorst()
+  }">
+  
+  <div class="space-y-5">
+    <!-- Item Name -->
+    <div>
+      <label [for]="'itemName-' + defaultName()" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Item Name</label>
+      <input 
+        type="text" 
+        [id]="'itemName-' + defaultName()"
+        [value]="itemName()"
+        (input)="itemName.set($any($event.target).value)"
+        class="w-full bg-slate-100 border-0 rounded-lg p-3 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+      />
+    </div>
+
+    <!-- Weight/Size and Unit -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label [for]="'weight-' + defaultName()" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Weight/Size</label>
+        <input 
+          type="text" 
+          [id]="'weight-' + defaultName()"
+          inputmode="decimal"
+          placeholder="0.00"
+          [value]="weight() ?? ''"
+          (input)="onWeightChange($event)"
+          class="w-full bg-slate-100 border-0 rounded-lg p-3 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+      <div>
+        <label [for]="'unit-' + defaultName()" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Unit</label>
+        <input 
+          type="text" 
+          [id]="'unit-' + defaultName()"
+          [value]="unit()"
+          (input)="unit.set($any($event.target).value)"
+          class="w-full bg-slate-100 border-0 rounded-lg p-3 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+    </div>
+
+    <!-- Quantity in Pack -->
+    <div>
+      <label [for]="'quantity-' + defaultName()" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Quantity in Pack</label>
+      <div class="relative">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 pointer-events-none">×</span>
+        <input 
+          type="text" 
+          [id]="'quantity-' + defaultName()"
+          inputmode="numeric"
+          placeholder="1"
+          [value]="quantity() ?? ''"
+          (input)="onQuantityChange($event)"
+          class="w-full bg-slate-100 border-0 rounded-lg p-3 pl-8 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div>
+      <label [for]="'price-' + defaultName()" class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Price (€ Total)</label>
+      <div class="relative">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 pointer-events-none">€</span>
+        <input 
+          type="text" 
+          [id]="'price-' + defaultName()"
+          inputmode="decimal"
+          placeholder="0.00"
+          [value]="price() ?? ''"
+          (input)="onPriceChange($event)"
+          class="w-full bg-slate-100 border-0 rounded-lg p-3 pl-7 text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+      </div>
+    </div>
+  </div>
+  
+  <!-- Result -->
+  <div class="mt-6 pt-5 border-t border-slate-200/60 flex justify-between items-center">
+    <span class="text-sm font-bold text-blue-500 uppercase">TOTAL BGN</span>
+    <span class="text-2xl font-bold text-blue-800">
+      {{ unitPriceBGN().toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
+      <span class="text-base font-medium text-blue-600">BGN</span>
+    </span>
+  </div>
+
+</div>

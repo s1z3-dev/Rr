@@ -1,0 +1,5 @@
+{
+  "name": "Unit Price Calculator",
+  "description": "A simple tool to compare the unit prices of two different products to find the better deal. Enter the details for each item to see which one offers more value.",
+  "requestFramePermissions": []
+}
